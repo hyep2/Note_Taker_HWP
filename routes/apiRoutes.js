@@ -4,7 +4,16 @@ const { join, parse } = require('path');
 const { uid } = require('uid')
 
 //  * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
-
+apiRouter.get('/notes', (req, res) => {
+  readFile(join(__dirname, '..', 'db', 'db.json'), utf8, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.json(JSON.parse(data));
+    }
+  })
+})
 
 //* POST `/api/notes` - Should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client.
 apiRouter.post('/notes', (req,res)=> {
