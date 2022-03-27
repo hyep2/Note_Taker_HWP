@@ -2,8 +2,10 @@ const apiRouter = require('express').Router();
 const { readFile, writeFile } = require('fs');
 const utils = require('util');
 const { join, parse } = require('path');
+
+
 // This package will be used to generate our unique ids. https://www.npmjs.com/package/uuid
-const uuid = require('uuid');
+let uuid = require('uuid');
 
 //  * GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
 apiRouter.get('/notes', (req, res) => {
@@ -24,7 +26,7 @@ apiRouter.post('/notes', (req,res)=> {
 
 
   if(req.body) {
-    const newNote = { title, text, id: uuid() };
+    const newNote = { title, text, id: uuid.v1() };
 
     readFile('./db/db.json', 'utf8', (err,data)=> {
       if (err) {
