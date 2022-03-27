@@ -3,7 +3,7 @@ const { readFile, writeFile } = require('fs');
 const utils = require('util');
 const { join, parse } = require('path');
 let noteData = require('../db/db');
-console.log(noteData);
+
 
 // This package will be used to generate our unique ids. https://www.npmjs.com/package/uuid
 let uuid = require('uuid');
@@ -68,11 +68,9 @@ apiRouter.delete('/notes/:id', (req, res) => {
       }
     }
     noteData = filteredNotes;
-    console.log(noteData);
-    writeFile('./db/db.json', JSON.stringify(noteData), err => console.log(err));
-    return res.json(filteredNotes);
    
-    //rewriting the notes with the selected note removed
+    writeFile('./db/db.json', JSON.stringify(noteData), err => console.log(err));
+    return res.json(noteData);
     
   }
   else {
