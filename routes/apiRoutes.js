@@ -68,10 +68,12 @@ apiRouter.delete('/notes/:id', (req, res) => {
       }
     }
     noteData = filteredNotes;
+    console.log(noteData);
+    writeFile('./db/db.json', JSON.stringify(noteData), err => console.log(err));
     return res.json(filteredNotes);
-    console.log(filteredNotes);
+   
     //rewriting the notes with the selected note removed
-    writeFile('./db/db.json', JSON.stringify(filteredNotes), err => console.log(err));
+    
   }
   else {
     return res.json('No note found');
