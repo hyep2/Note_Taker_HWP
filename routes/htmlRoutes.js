@@ -9,7 +9,7 @@ htmlRouter.get('/notes',(req,res)=> {
 
 //* GET `*` - Should return the `index.html` file
 htmlRouter.get('*', (req,res)=>
-  res.sendFile(join(__dirname, '..', 'public,' 'index.html'))
+  res.sendFile(join(__dirname, '..', 'public', 'index.html'))
 )
 
 module.exports = htmlRouter; 
