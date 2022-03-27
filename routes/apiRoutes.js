@@ -2,7 +2,8 @@ const apiRouter = require('express').Router();
 const { readFile, writeFile } = require('fs');
 const utils = require('util');
 const { join, parse } = require('path');
-const noteData = require('./db/db.json');
+let noteData = require('../db/db');
+console.log(noteData);
 
 // This package will be used to generate our unique ids. https://www.npmjs.com/package/uuid
 let uuid = require('uuid');
@@ -58,15 +59,17 @@ apiRouter.post('/notes', (req,res)=> {
 
 //* DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 apiRouter.delete('/notes/:id', (req, res) => {
-  const requestedNote = req.params.id.toLowerCase();
+  const requestedNote = req.params.id;
   const filteredNotes = [];
   if (requestedNote) {
     for (let i = 0; i < noteData.length; i++) {
-      if (requestedNote != noteData[i].id.toLowerCase()) {
+      if (requestedNote != noteData[i].id) {
         filteredNotes.push(noteData[i]);
       }
     }
+    noteData = filteredNotes;
     return res.json(filteredNotes);
+    console.log(filteredNotes);
     //rewriting the notes with the selected note removed
     writeFile('./db/db.json', JSON.stringify(filteredNotes), err => console.log(err));
   }
