@@ -61,16 +61,18 @@ apiRouter.post('/notes', (req,res)=> {
 
 //* DELETE `/api/notes/:id` - Should receive a query parameter containing the id of a note to delete. This means you'll need to find a way to give each note a unique `id` when it's saved. In order to delete a note, you'll need to read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
 apiRouter.delete('/notes/:id', (req, res) => {
+  //setting id parameter
   const requestedNote = req.params.id;
   const filteredNotes = [];
   if (requestedNote) {
     for (let i = 0; i < noteData.length; i++) {
+      //will push all the notes that don't have selected id
       if (requestedNote != noteData[i].id) {
         filteredNotes.push(noteData[i]);
       }
     }
     noteData = filteredNotes;
-   
+   //updated note data json file
     writeFile('./db/db.json', JSON.stringify(noteData), err => console.log(err));
     return res.json(noteData);
     
