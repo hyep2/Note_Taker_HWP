@@ -13,6 +13,4 @@ app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
 
-
-const PORT = 'process.env.PORT || 3000';
-app.listen(PORT, console.log('app is running'));
+app.listen(process.env.PORT || 3000);
