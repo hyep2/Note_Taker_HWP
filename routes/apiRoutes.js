@@ -40,6 +40,8 @@ apiRouter.post('/notes', (req,res)=> {
         //add new note onto the existing notes
         parsedDb.push(newNote);
 
+        //updated noteData
+        noteData = parsedDb;
         //write updated review back to db file
         writeFile('./db/db.json', JSON.stringify(parsedDb), err=>console.log(err))
       }
